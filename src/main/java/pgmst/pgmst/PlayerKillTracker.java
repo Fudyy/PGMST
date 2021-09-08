@@ -13,6 +13,6 @@ public class PlayerKillTracker implements Listener {
         String KillerName = event.getEntity().getKiller().getName();
 
 
-        Bukkit.broadcastMessage(KillerName + " Ha matado a " + KilledName + " LOLOLOLOLO");
+        Bukkit.broadcastMessage(KillerName + " Ha matado a " + KilledName + " LOLOLOLOLOLO");
     }
 }
