@@ -9,6 +9,7 @@ public final class PGMST extends JavaPlugin {
     public void onEnable() {
         System.out.println("PGMST is starting...");
         Bukkit.getPluginManager().registerEvents(new PlayerWoolTracker(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerKillTracker(), this);
     }
 
     @Override
