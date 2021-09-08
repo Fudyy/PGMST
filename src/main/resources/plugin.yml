@@ -1,0 +1,6 @@
+name: PGMST
+version: '${project.version}'
+main: pgmst.pgmst.PGMST
+api-version: 1.17
+authors: [ Fudy ]
+description: Stat tracker for PGM plugin.
