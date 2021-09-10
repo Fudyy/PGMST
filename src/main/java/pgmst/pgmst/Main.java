@@ -8,7 +8,6 @@ import pgmst.pgmst.Database.SQLGetter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import pgmst.pgmst.Database.DBConnection;
-import tc.oc.pgm.api.player.MatchPlayer;
 import tc.oc.pgm.api.player.ParticipantState;
 import tc.oc.pgm.api.player.event.MatchPlayerDeathEvent;
 import tc.oc.pgm.wool.PlayerWoolPlaceEvent;
@@ -57,16 +56,17 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onDeath(final MatchPlayerDeathEvent event) {
+    public void onDeath(MatchPlayerDeathEvent event) {
         //Get the victim uuid
-        MatchPlayer victim = event.getVictim();
+        ParticipantState victim = event.getVictim().getParticipantState();
         UUID victimUUID = victim.getId();
 
         //Get the killer UUID if exists, or it's not a suicide
         ParticipantState killer = event.getKiller();
-        if (killer != null ||  killer.getId() != victimUUID) {
+        if (killer != null && killer.getId() != victimUUID) {
             UUID killerUUID = killer.getId();
             data.addKill(killerUUID);
+            data.addDeath(victimUUID);
         } else {
             data.addDeath(victimUUID);
         }
