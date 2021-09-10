@@ -1,8 +1,7 @@
-package pgmst.pgmst;
+package pgmst.pgmst.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 
 
 public class DBConnection {
@@ -10,7 +9,6 @@ public class DBConnection {
         try{
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pgmst", "root", "");
 
-            Statement statement = connection.createStatement();
         } catch (Exception e){
             e.printStackTrace();
         }

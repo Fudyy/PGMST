@@ -1,4 +1,4 @@
-package pgmst.pgmst;
+package pgmst.pgmst.Trackers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
