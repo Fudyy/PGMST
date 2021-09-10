@@ -2,16 +2,34 @@ package pgmst.pgmst.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
 
 public class DBConnection {
-    public static void main(String[] args) {
-        try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pgmst", "root", "");
+    private Connection connection;
 
-        } catch (Exception e){
-            e.printStackTrace();
+    public boolean isConnected(){
+        return (connection != null);
+    }
+
+    public void connect() throws ClassNotFoundException, SQLException {
+        if(!isConnected()){
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pgmst?useSSL=false", "root", "");
         }
     }
+
+    public void disconnect() {
+        if (isConnected()) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
 }
+
 
