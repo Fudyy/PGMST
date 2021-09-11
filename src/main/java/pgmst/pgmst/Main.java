@@ -25,7 +25,10 @@ public final class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         System.out.println("PGMST is starting...");
 
-        this.connection = new DBConnection();
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
+        this.connection = new DBConnection(this);
         this.data = new SQLGetter(this);
 
         try {
@@ -77,5 +80,9 @@ public final class Main extends JavaPlugin implements Listener {
         //Gets the player UUID that captured a wool.
         UUID player = event.getPlayer().getId();
         data.addWools(player);
+    }
+
+    public void configPath(){
+        String ip = getConfig().getString("IP");
     }
 }
