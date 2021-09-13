@@ -42,12 +42,12 @@ public class SQLGetter {
         PreparedStatement ps;
         try{
             UUID uuid = player.getUniqueId();
-            if(!exists(uuid)){
-                ps = plugin.connection.getConnection().prepareStatement("INSERT INTO PlayerStats (PlayerName, PlayerUUID, Kills, Deaths, Wools) VALUES (?, ?, 0, 0, 0);");
-                ps.setString(1, player.getName());
-                ps.setString(2, uuid.toString());
-                ps.executeUpdate();
-            }
+
+            ps = plugin.connection.getConnection().prepareStatement("INSERT INTO PlayerStats (PlayerName, PlayerUUID, Kills, Deaths, Wools) VALUES (?, ?, 0, 0, 0);");
+            ps.setString(1, player.getName());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,6 +67,32 @@ public class SQLGetter {
             e.printStackTrace();
         }
         return false;
+    }
+
+    //Updates the name of the player in the database.
+    public void updateName(Player player){
+        PreparedStatement ps1, ps2;
+
+        String playerUUID = player.getUniqueId().toString();
+        String actualName = player.getName();
+
+        try {
+
+            ps1=plugin.connection.getConnection().prepareStatement("SELECT PlayerName FROM PlayerStats WHERE PlayerUUID=?;");
+            ps1.setString(1,playerUUID);
+            ResultSet result = ps1.executeQuery();
+            result.next();
+            String dbPlayerName = result.getString("PlayerName");
+
+            if (dbPlayerName != actualName){
+                ps2=plugin.connection.getConnection().prepareStatement("UPDATE PlayerStats SET PlayerName=? WHERE PlayerUUID=?;");
+                ps2.setString(1,actualName);
+                ps2.setString(2,playerUUID);
+                ps2.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Adds a kill to the given player.

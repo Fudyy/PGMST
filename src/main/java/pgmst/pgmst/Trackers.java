@@ -21,7 +21,12 @@ public class Trackers implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
-        data.createNewPlayer(player);
+        UUID playerUUID = player.getUniqueId();
+        if (data.exists(playerUUID)){
+            data.updateName(player);
+        } else {
+            data.createNewPlayer(player);
+        }
     }
 
     @EventHandler
