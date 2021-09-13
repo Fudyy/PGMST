@@ -1,18 +1,20 @@
 <h1 align=center>PGM STAT TRACKER</h1>
 <p align=center>This simple plugin allows you to track your PGM stats and send them to a MySQL database!</p>
 
-##Overview
-This plugin was made after me and my friends played some matches of PGM and wanted to compete for who have the most kills and better KD (like the old Overcast Network website) but there wasn't a way to track our stats, so to learn java and fill our necessities I made this!
-##Dependencies
+<h2>Overview</h2>
+This plug-in was made after I had played PGM with some friends who wanted to compare stats like most kills and KD ratio. There wasn't a good way to track these stats and in order to fulfill that want, I created this!
+
+<h2>Dependencies</h2>
 <li><a href=https://github.com/PGMDev/PGM>PGM</a></li>
 <li><a href=https://www.mysql.com>MySQL</a></li>
-
+<p></p>
 This plugin is meant to work along with PGM, sending the stats to a MySQL database.
 
-##Usage
-The plugin will generate a **"config.yml"** file, where you can put your MySQL info for connecting to your database.
-
+<h2>Usage</h2>
+This will generate a "config.yml" file to insert your MySQL information in order to connect to your database.
+<p></p>
 The Default settings are:
+
 ```
 Ip: 'localhost'
 Port: '3306'
