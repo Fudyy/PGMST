@@ -16,9 +16,10 @@ This will generate a "config.yml" file to insert your MySQL information in order
 The Default settings are:
 
 ```
-Ip: 'localhost'
-Port: '3306'
-DBName: 'pgmst'
-User: 'root'
-Password: ''
+database:
+    ip: 'localhost'
+    port: '3306'
+    dbName: 'pgmst'
+    user: 'root'
+    password: ''
 ```
