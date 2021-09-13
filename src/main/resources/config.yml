@@ -1,7 +1,8 @@
 #Set your MySQL config.
 
-Ip: 'localhost'
-Port: '3306'
-DBName: 'pgmst'
-User: 'root'
-Password: ''
+database:
+  ip: 'localhost'
+  port: '3306'
+  dbName: 'pgmst'
+  user: 'root'
+  password: ''

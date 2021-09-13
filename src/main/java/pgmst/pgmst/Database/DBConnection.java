@@ -20,11 +20,11 @@ public class DBConnection {
 
     public void connect() throws ClassNotFoundException, SQLException {
         if(!isConnected()){
-            String ip = plugin.getConfig().getString("Ip");
-            String port = plugin.getConfig().getString("Port");
-            String DBName = plugin.getConfig().getString("DBName");
-            String user = plugin.getConfig().getString("User");
-            String password = plugin.getConfig().getString("Password");
+            String ip = plugin.getConfig().getString("database.ip");
+            String port = plugin.getConfig().getString("database.port");
+            String DBName = plugin.getConfig().getString("database.dbName");
+            String user = plugin.getConfig().getString("database.user");
+            String password = plugin.getConfig().getString("database.password");
 
             connection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+DBName+"?useSSL=false", user, password);
         }
