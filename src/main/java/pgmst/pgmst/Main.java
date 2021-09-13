@@ -66,7 +66,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         //Get the killer UUID if exists, or it's not a suicide
         ParticipantState killer = event.getKiller();
-        if (killer != null && killer.getId() != victimUUID) {
+        if (killer != null && !event.isSuicide()) {
             UUID killerUUID = killer.getId();
             data.addKill(killerUUID);
             data.addDeath(victimUUID);
