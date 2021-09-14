@@ -61,8 +61,7 @@ public class SQLGetter {
             ps.setString(1, uuid.toString());
 
             ResultSet result = ps.executeQuery();
-            if (result.next()) return true;
-            else return false;
+            return result.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

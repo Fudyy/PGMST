@@ -1,5 +1,6 @@
 package pgmst.pgmst;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import pgmst.pgmst.Database.SQLGetter;
 import org.bukkit.Bukkit;
@@ -26,11 +27,11 @@ public final class Main extends JavaPlugin implements Listener {
         try {
             connection.connect();
         } catch (ClassNotFoundException | SQLException e){
-            Bukkit.getLogger().info("PGMST can't connect to the database. :(");
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED+"PGMST couldn't connect to the database. :(");
         }
 
         if(connection.isConnected()){
-            Bukkit.getLogger().info("PGMST is now connected to the database! :D");
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "PGMST is now connected to the database! :D");
             //create PlayerStats table if not exists in the database.
             data.createTable();
 
