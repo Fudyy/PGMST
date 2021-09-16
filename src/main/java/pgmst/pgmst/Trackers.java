@@ -64,25 +64,11 @@ public class Trackers implements Listener {
 
     @EventHandler
     public void onMonumentBreak(DestroyableHealthChangeEvent event) {
-        // Calculating monuments works kinda different, instead of getting an exact number
-        // the plugin is going to track the total percentage of monuments destroyed,
-        // so it can work with maps that have more than only 2 monument blocks per goal.
-
         ParticipantState player = event.getChange().getPlayerCause();
         UUID playerUUID = player.getId();
 
-        if (player.isPlayer(player.getPlayer().get())) {
-
-            //TODO: don't track when a monument is repaired.
-
-            float monumentHealthChange = Objects.requireNonNull(event.getChange()).getHealthChange();
-            monumentHealthChange = Math.abs(monumentHealthChange);
-            float monumentMaxHealth = event.getDestroyable().getMaxHealth();
-
-            //Percentage instantly formatted to "0.xx" so it can be added to the DB easily.
-            float percentage = ((monumentHealthChange * 100) / monumentMaxHealth) / 100;
-
-            data.addMonumentPercentage(playerUUID, percentage);
+        if (player.isPlayer(player.getPlayer().get()) && !event.getDestroyable().hasTouched(player)) {
+            data.addMonument(playerUUID);
         }
     }
 

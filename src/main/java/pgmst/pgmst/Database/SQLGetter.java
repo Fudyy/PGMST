@@ -27,7 +27,7 @@ public class SQLGetter {
                         "`Deaths` int NOT NULL,\n" +
                         "`KD` float NOT NULL,\n" +
                         "`Wools` int NOT NULL,\n" +
-                        "`Monuments` float NOT NULL,\n" +
+                        "`Monuments` int NOT NULL,\n" +
                         "`Cores` int NOT NULL, \n" +
                         "PRIMARY KEY (`id`)\n" +
                         ");";
@@ -151,13 +151,12 @@ public class SQLGetter {
         }
     }
 
-    //Adds the percentage equivalent to the life that the player took from the monument
-    public void addMonumentPercentage(UUID uuid, float percentage){
+    //Adds a Monument to the player
+    public void addMonument(UUID uuid){
         PreparedStatement ps;
         try {
-            ps = plugin.connection.getConnection().prepareStatement("UPDATE PlayerStats SET Monuments=Monuments+? WHERE PlayerUUID=?;");
-            ps.setFloat(1,percentage);
-            ps.setString(2,uuid.toString());
+            ps = plugin.connection.getConnection().prepareStatement("UPDATE PlayerStats SET Monuments=Monuments+1 WHERE PlayerUUID=?;");
+            ps.setString(1,uuid.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
