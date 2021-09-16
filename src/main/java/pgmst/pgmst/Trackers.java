@@ -56,8 +56,10 @@ public class Trackers implements Listener {
     @EventHandler
     public void onWoolCapture(PlayerWoolPlaceEvent event) {
         //Gets the player UUID that captured a wool.
-        UUID player = event.getPlayer().getId();
-        data.addWools(player);
+        ParticipantState player = event.getPlayer();
+        if (player.getPlayer().isPresent()){
+            data.addWools(player.getId());
+        }
     }
 
     @EventHandler
