@@ -27,6 +27,7 @@ public class SQLGetter {
                         "`Deaths` int NOT NULL,\n" +
                         "`Wools` int NOT NULL,\n" +
                         "`Monuments` float NOT NULL,\n" +
+                        "`Cores` int NOT NULL, \n" +
                         "PRIMARY KEY (`id`)\n" +
                         ");";
 
@@ -44,7 +45,7 @@ public class SQLGetter {
         try{
             UUID uuid = player.getUniqueId();
 
-            ps = plugin.connection.getConnection().prepareStatement("INSERT INTO PlayerStats (PlayerName, PlayerUUID, Kills, Deaths, Wools, Monuments) VALUES (?, ?, 0, 0, 0, 0);");
+            ps = plugin.connection.getConnection().prepareStatement("INSERT INTO PlayerStats (PlayerName, PlayerUUID, Kills, Deaths, Wools, Monuments, Cores) VALUES (?, ?, 0, 0, 0, 0, 0);");
             ps.setString(1, player.getName());
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -144,4 +145,15 @@ public class SQLGetter {
         }
     }
 
+    //Adds a Core to the given player.
+    public void addCore(UUID uuid){
+        PreparedStatement ps;
+        try {
+            ps = plugin.connection.getConnection().prepareStatement("UPDATE playerstats SET Cores=Cores+1 WHERE PlayerUUID=?;");
+            ps.setString(1, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

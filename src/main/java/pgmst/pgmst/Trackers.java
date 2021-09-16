@@ -1,21 +1,17 @@
 package pgmst.pgmst;
 
-import com.google.common.collect.ImmutableList;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import pgmst.pgmst.Database.SQLGetter;
+import tc.oc.pgm.api.player.MatchPlayerState;
 import tc.oc.pgm.api.player.ParticipantState;
 import tc.oc.pgm.api.player.event.MatchPlayerDeathEvent;
-import tc.oc.pgm.api.player.event.MatchPlayerEvent;
-import tc.oc.pgm.destroyable.DestroyableContribution;
-import tc.oc.pgm.destroyable.DestroyableEvent;
+import tc.oc.pgm.core.CoreBlockBreakEvent;
 import tc.oc.pgm.destroyable.DestroyableHealthChangeEvent;
 import tc.oc.pgm.wool.PlayerWoolPlaceEvent;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -66,20 +62,39 @@ public class Trackers implements Listener {
 
     @EventHandler
     public void onMonumentBreak(DestroyableHealthChangeEvent event) {
-        /*Calculating monuments works kinda different...
-        instead of getting an exact number the plugin is going to track the total percentage of monuments destroyed,
-        so it can work with maps that have more than only 2 monument blocks per goal.*/
+        // Calculating monuments works kinda different, instead of getting an exact number
+        // the plugin is going to track the total percentage of monuments destroyed,
+        // so it can work with maps that have more than only 2 monument blocks per goal.
 
         ParticipantState player = event.getChange().getPlayerCause();
         UUID playerUUID = player.getId();
 
-        float monumentHealthChange = Objects.requireNonNull(event.getChange()).getHealthChange();
-        monumentHealthChange = Math.abs(monumentHealthChange);
-        float monumentMaxHealth = event.getDestroyable().getMaxHealth();
+        if (player.isPlayer(player.getPlayer().get())) {
 
-        //Percentage instantly formatted to "0.xx" so it can be added to the DB easily.
-        float percentage = ((monumentHealthChange*100)/monumentMaxHealth)/100;
+            //TODO: don't track when a monument is repaired.
 
-        data.addMonumentPercentage(playerUUID,percentage);
+            float monumentHealthChange = Objects.requireNonNull(event.getChange()).getHealthChange();
+            monumentHealthChange = Math.abs(monumentHealthChange);
+            float monumentMaxHealth = event.getDestroyable().getMaxHealth();
+
+            //Percentage instantly formatted to "0.xx" so it can be added to the DB easily.
+            float percentage = ((monumentHealthChange * 100) / monumentMaxHealth) / 100;
+
+            data.addMonumentPercentage(playerUUID, percentage);
+        }
+    }
+
+    @EventHandler
+    public void onCoreBreak(CoreBlockBreakEvent event) {
+        // like the old OCTC website, it is going to track only the touched cores.
+        // You can only get one +1 stat per core.
+        // (I tried to track just the player that actually leaked the core, but it was a pain to do)
+
+        MatchPlayerState player = event.getPlayer();
+        ParticipantState participantState = player.getPlayer().get().getParticipantState();
+
+        if(player.getPlayer().isPresent() && !event.getCore().hasTouched(participantState)) {
+            data.addCore(player.getId());
+        }
     }
 }

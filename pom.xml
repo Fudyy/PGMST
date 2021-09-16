@@ -6,7 +6,7 @@
 
     <groupId>PGMST</groupId>
     <artifactId>PGMST</artifactId>
-    <version>1.0.0</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
 
     <name>PGMST</name>
