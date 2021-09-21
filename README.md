@@ -7,6 +7,7 @@ This plug-in was made after I had played PGM with some friends who wanted to com
 <h2>Dependencies</h2>
 <li><a href=https://github.com/PGMDev/PGM>PGM</a></li>
 <li><a href=https://www.mysql.com>MySQL</a></li>
+<li><a href="https://github.com/Electroid/SportPaper">SportPaper</a></li>
 <p></p>
 This plugin is meant to work along with PGM, sending the stats to a MySQL database.
 

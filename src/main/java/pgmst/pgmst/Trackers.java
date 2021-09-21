@@ -12,7 +12,6 @@ import tc.oc.pgm.core.CoreBlockBreakEvent;
 import tc.oc.pgm.destroyable.DestroyableHealthChangeEvent;
 import tc.oc.pgm.wool.PlayerWoolPlaceEvent;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class Trackers implements Listener {
